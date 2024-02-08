@@ -53,6 +53,10 @@ runs:
       run: if [ -n "${{ inputs.ssh_key }}" ]; then echo "${{ inputs.ssh_key }}" | ssh-add - ; fi
 
     - shell: bash
+      name: Remove the docker remote context
+      run: docker context rm -f "${{ inputs.context_name }}"
+
+    - shell: bash
       name: Create the docker remote context
       run: docker context create "${{ inputs.context_name }}" --docker "host=${{ inputs.docker_host }}"
 
